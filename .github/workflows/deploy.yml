@@ -29,8 +29,8 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            EXPORT PATH=$PATH:/root/.bun/bin/bun:/root/.bun/bin/pm2
+            export PATH=$PATH:/root/.bun/bin/bun:/root/.bun/bin/pm2
             cd /opt/website/
-            git pull origin {{ github.ref_name }}
+            git pull origin {{ github.ref }}
             bun run build
             pm2 restart website

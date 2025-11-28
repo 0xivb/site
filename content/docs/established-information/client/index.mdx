@@ -42,20 +42,20 @@ Hytale uses data-driven client-side prediction to mitigate lag, as all interacti
 The team is exploring allowing execution of code by the client (which is distinct from modding the client; this is code sent from the server), though this is not guaranteed. [Source](https://discord.com/channels/523059903812599811/1428794280868184064/1441276756785889431)
 
 # Models
-The client and assets pipeline accepts `.blockymodel`, a custom format for Hytale. The official BlockBench plugin will allow you to export to this format. [Source](https://discord.com/channels/523059903812599811/1441801971374755850/1441850997759672551)
+The client and assets pipeline accepts `.blockymodel`, a custom format for Hytale. The official Blockbench plugin will allow you to export to this format. [Source](https://discord.com/channels/523059903812599811/1441801971374755850/1441850997759672551)
 
 # Client Technical Details 
 There will only ever be one current, supported version of the client.
 > Java version will be kept updated by us and right now we are on the latest version (Java 25)
 The game version will not be selectable to avoid the version jungle we experienced on our hypixel server network. We simply want to make sure that multiplayer networks can rely on players having the latest version of the game to not have to support 15+ versions of the client. - Slikey [Source](https://discord.com/channels/523059903812599811/1428794280868184064/1441276756785889431)
 
-The client is multithreaded. [Source1](https://discord.com/channels/523059903812599811/1428794280868184064/1441282012286554195) [Source 2](https://discord.com/channels/523059903812599811/1428794280868184064/1441282904385650758)
+The client is multithreaded. [Source 1](https://discord.com/channels/523059903812599811/1428794280868184064/1441282012286554195) [Source 2](https://discord.com/channels/523059903812599811/1428794280868184064/1441282904385650758)
 
 ## GUI
 The GUI is built from C# bindings using Noesis. [Source](https://discord.com/channels/523059903812599811/1428794280868184064/1441272514734198926)
 
 ## Build System
-Hytale uses NativeAOT ("Ahead of Time") to build the client, which compiles C# to machine code for distribution. This means that, without reverse-engineering the machine code, mods will have to go through the server API. 
+Hytale uses NativeAOT ("Ahead of Time") to build the client, which compiles C# to machine code for distribution. This means that, without reverse-engineering the machine code, mods will have to go through the server API.
 
 # Other Information
 The client has its own versioning and protocol to interact with servers.

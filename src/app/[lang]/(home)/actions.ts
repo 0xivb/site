@@ -1,21 +1,30 @@
 "use server";
 
 export async function getDiscordStats() {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  try {
+    const response = await fetch("https://api.internal.hytalemodding.guide/guild/stats", {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${process.env.INTERNAL_API_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+    });
 
-  const stats = {
-    active_members: 150,
-    total_members: 500,
-    member_statuses: {
-      online: 300,
-      away: 200,
-      dnd: 100,
-      offline: 100,
-    },
-  };
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-  return {
-    active_members: stats.active_members,
-    total_members: stats.total_members,
-  };
+    const stats = await response.json();
+
+    return {
+      active_members: stats.active_members,
+      total_members: stats.total_members,
+    };
+  } catch (error) {
+    console.error("Failed to fetch Discord stats:", error);
+    return {
+      active_members: 0,
+      total_members: 0,
+    };
+  }
 }

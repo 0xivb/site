@@ -17,34 +17,34 @@ type Project = {
 };
 
 async function getProjects(): Promise<Project[]> {
-  const projectsPath = join(process.cwd(), "content", "projects");
+    const projectsPath = join(process.cwd(), "content", "projects");
 
-  try {
-    const files = await readdir(projectsPath);
-    const mdxFiles = files.filter((file) => file.endsWith(".mdx"));
+    try {
+        const files = await readdir(projectsPath);
+        const mdxFiles = files.filter((file) => file.endsWith(".mdx") && file !== "example.mdx");
 
-    const projects = await Promise.all(
-      mdxFiles.map(async (file) => {
-        const slug = file.replace(/\.mdx$/, "");
-        const filePath = join(projectsPath, file);
-        const source = await readFile(filePath, "utf-8");
-        const { data } = matter(source);
+        const projects = await Promise.all(
+            mdxFiles.map(async (file) => {
+                const slug = file.replace(/\.mdx$/, "");
+                const filePath = join(projectsPath, file);
+                const source = await readFile(filePath, "utf-8");
+                const { data } = matter(source);
 
-        return {
-          slug,
-          title: data.title || slug,
-          description: data.description || "",
-          banner: data.banner,
-          logo: data.logo,
-        };
-      })
-    );
+                return {
+                    slug,
+                    title: data.title || slug,
+                    description: data.description || "",
+                    banner: data.banner,
+                    logo: data.logo,
+                };
+            })
+        );
 
-    return projects;
-  } catch (error) {
-    console.error("Error reading projects:", error);
-    return [];
-  }
+        return projects;
+    } catch (error) {
+        console.error("Error reading projects:", error);
+        return [];
+    }
 }
 
 export default async function ProjectsPage({ params }: { params: { lang: string } }) {
